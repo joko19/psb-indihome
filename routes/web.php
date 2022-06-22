@@ -25,20 +25,14 @@ Route::get('/login', [LoginController::class, 'viewLogin'])->name('login');
 Route::post('/postLogin',[LoginController::class, 'postLogin'])->name('postLogin');
 Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => ['checkLevel:admin']], function(){
-    Route::get('/beranda', function () {
-        return view('beranda');
-    });
+Route::group(['middleware' => ['auth', 'checkLevel:teknisi,admin']], function(){
     Route::get('/data-order', function () {
         return view('data-order');
     });
 });
 
-Route::group(['middleware' => ['checkLevel:teknisi']], function(){
-    Route::get('/beranda', function () {
-        return view('beranda');
-    });
-    Route::get('/data-order', function () {
-        return view('data-order');
-    });
-});
+// Route::group(['middleware' => ['auth', 'checkLevel:teknisi']], function(){
+//     Route::get('/data-order', function () {
+//         return view('data-order');
+//     });
+// });
