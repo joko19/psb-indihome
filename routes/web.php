@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -26,9 +27,7 @@ Route::post('/postLogin',[LoginController::class, 'postLogin'])->name('postLogin
 Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth', 'checkLevel:teknisi,admin']], function(){
-    Route::get('/data-order', function () {
-        return view('data-order');
-    });
+    Route::get('/data-order', [OrderController::class, 'index'])->name('data-order');
 });
 
 // Route::group(['middleware' => ['auth', 'checkLevel:teknisi']], function(){

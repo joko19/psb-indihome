@@ -29,8 +29,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li>
+                                <button type="button" class="btn btn-success">Add Data Order</button>
+                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Starter Page</li> -->
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -40,31 +41,78 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Main content -->
             <div class="content">
-                data order
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">No</th>
+                                    <th>Nama</th>
+                                    <th>Alamat</th>
+                                    <th>Jenih Identitas</th>
+                                    <th>Nomor Identitas</th>
+                                    <th>No HP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1.</td>
+                                    <td>Budi</td>
+                                    <td>Surabaya</td>
+                                    <td>KTP</td>
+                                    <td>35124832834</td>
+                                    <td>085789987123</td>
+                                </tr>
+                                <tr>
+                                    <td>2.</td>
+                                    <td>Budi</td>
+                                    <td>Surabaya</td>
+                                    <td>KTP</td>
+                                    <td>35124832834</td>
+                                    <td>085789987123</td>
+                                </tr>
+                                <tr>
+                                    <td>3.</td>
+                                    <td>Budi</td>
+                                    <td>Surabaya</td>
+                                    <td>KTP</td>
+                                    <td>35124832834</td>
+                                    <td>085789987123</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
             </div>
-            <!-- /.content -->
+            <!-- /.col -->
         </div>
-        <!-- /.content-wrapper -->
+    </div>
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+        <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
 
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+            Anything you want
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
     </div>
     <!-- ./wrapper -->
 
