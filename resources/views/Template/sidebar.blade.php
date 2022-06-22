@@ -1,5 +1,5 @@
 
-  <aside class="main-sidebar sidebar-danger-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <!-- <img src="{{asset('images/indihome.png')}}" alt="AdminLTE Logo" class="brand-image elevation-3" style="opacity: .8"> -->
@@ -37,10 +37,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('logout')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Simple Link
+                Logout
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>

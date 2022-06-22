@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/beranda', function () {
-    return view('beranda');
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::post(
+    '/postLogin', 
+    [LoginController::class, 'postLogin']
+)->name('postLogin');
+
+Route::get(
+    '/logout', 
+    [LoginController::class, 'logout']
+)->name('logout');
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/beranda', function () {
+        return view('beranda');
+    });
 });
