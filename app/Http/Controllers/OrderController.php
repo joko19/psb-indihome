@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -23,9 +24,15 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('data-order.create');
+
+        // dd(auth()->user()->level);
+        if (auth()->user()->level == "admin") {
+            return view('data-order.create');
+        } else {
+            return redirect('data-order');
+        }
     }
 
     /**
@@ -44,7 +51,7 @@ class OrderController extends Controller
             'numberIdentity' => $request->typeIdentity,
             'phone' => $request->phone
         ]);
-        return view('data-order.index');
+        return redirect('data-order')->with('success', 'Berhasil Menambahkan Data Pesanan');
     }
 
     /**

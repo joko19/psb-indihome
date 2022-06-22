@@ -24,7 +24,7 @@
                 <li class="nav-item menu-open">
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('data-order')}}" class="nav-link">
                                 <p>Data Order</p>
                             </a>
                         </li>

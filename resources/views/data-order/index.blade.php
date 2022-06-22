@@ -29,7 +29,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
+                                @if (auth()->user()->level == "admin")
                                 <a href="{{route('create-order')}}" type="button" class="btn btn-success">Add Data Order</a>
+                                @endif
                                 <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Starter Page</li> -->
                             </ol>
@@ -104,6 +106,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- jQuery -->
     @include('Template.script')
+    @include('sweetalert::alert')
 </body>
-
 </html>

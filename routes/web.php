@@ -26,14 +26,11 @@ Route::get('/login', [LoginController::class, 'viewLogin'])->name('login');
 Route::post('/postLogin',[LoginController::class, 'postLogin'])->name('postLogin');
 Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => ['auth', 'checkLevel:teknisi,admin']], function(){
+Route::group(['middleware' => ['auth', 'checkLevel:admin,teknisi']], function(){
     Route::get('/data-order', [OrderController::class, 'index'])->name('data-order');
-    Route::get('/create-order', [OrderController::class, 'create'])->name('create-order');
-    Route::post('/store-order', [OrderController::class, 'store'])->name('store-order');
 });
 
-// Route::group(['middleware' => ['auth', 'checkLevel:teknisi']], function(){
-//     Route::get('/data-order', function () {
-//         return view('data-order');
-//     });
-// });
+Route::group(['middleware' => ['auth', 'checkLevel:admin']], function(){
+    Route::get('/data-order/create', [OrderController::class, 'create'])->name('create-order');
+    Route::post('/store-order', [OrderController::class, 'store'])->name('store-order');
+});
