@@ -31,8 +31,11 @@ Route::get(
     [LoginController::class, 'logout']
 )->name('logout');
 
-Route::group(['middleware' => ['auth']], function(){
+Route::group(['middleware' => ['checkLevel:teknisi']], function(){
     Route::get('/beranda', function () {
         return view('beranda');
+    });
+    Route::get('/data-order', function () {
+        return view('data-order');
     });
 });
