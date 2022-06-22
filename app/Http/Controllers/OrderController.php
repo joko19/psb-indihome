@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,7 +14,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('data-order');
+        $dataOrder = Order::all();
+        return view('data-order.index', compact('dataOrder'));
     }
 
     /**
@@ -23,7 +25,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('data-order.create');
     }
 
     /**
@@ -34,7 +36,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        Order::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'typeIdentity' => $request->typeIdentity,
+            'numberIdentity' => $request->typeIdentity,
+            'phone' => $request->phone
+        ]);
+        return view('data-order.index');
     }
 
     /**

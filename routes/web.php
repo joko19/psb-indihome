@@ -28,6 +28,8 @@ Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth', 'checkLevel:teknisi,admin']], function(){
     Route::get('/data-order', [OrderController::class, 'index'])->name('data-order');
+    Route::get('/create-order', [OrderController::class, 'create'])->name('create-order');
+    Route::post('/store-order', [OrderController::class, 'store'])->name('store-order');
 });
 
 // Route::group(['middleware' => ['auth', 'checkLevel:teknisi']], function(){

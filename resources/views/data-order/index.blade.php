@@ -29,7 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <button type="button" class="btn btn-success">Add Data Order</button>
+                                <a href="{{route('create-order')}}" type="button" class="btn btn-success">Add Data Order</a>
                                 <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Starter Page</li> -->
                             </ol>
@@ -47,7 +47,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th style="width: 10px">No</th>
                                     <th>Nama</th>
                                     <th>Alamat</th>
                                     <th>Jenih Identitas</th>
@@ -56,30 +55,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($dataOrder as $item)
                                 <tr>
-                                    <td>1.</td>
-                                    <td>Budi</td>
-                                    <td>Surabaya</td>
-                                    <td>KTP</td>
-                                    <td>35124832834</td>
-                                    <td>085789987123</td>
+                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->address}}</td>
+                                    <td>{{$item->typeIdentity}}</td>
+                                    <td>{{$item->numberIdentity}}</td>
+                                    <td>{{$item->phone}}</td>
                                 </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Budi</td>
-                                    <td>Surabaya</td>
-                                    <td>KTP</td>
-                                    <td>35124832834</td>
-                                    <td>085789987123</td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Budi</td>
-                                    <td>Surabaya</td>
-                                    <td>KTP</td>
-                                    <td>35124832834</td>
-                                    <td>085789987123</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
