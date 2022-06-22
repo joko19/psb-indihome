@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    // view
+    public function viewLogin(Request $request)
+    {
+        return view('auth.login');
+    }
+
+    // logic
     public function postLogin(Request $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
