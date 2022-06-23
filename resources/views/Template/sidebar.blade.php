@@ -21,7 +21,7 @@
                         </li>
                         @if (auth()->user()->level == "admin")
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('schedule')}}" class="nav-link">
                                 <p>Schedule</p>
                             </a>
                         </li>

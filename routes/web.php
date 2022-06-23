@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,7 @@ Route::group(['middleware' => ['auth', 'checkLevel:admin,teknisi']], function(){
 Route::group(['middleware' => ['auth', 'checkLevel:admin']], function(){
     Route::get('/data-order/create', [OrderController::class, 'create'])->name('create-order');
     Route::post('/store-order', [OrderController::class, 'store'])->name('store-order');
+
+    Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
+    Route::get('/schedule/{id}', [ScheduleController::class, 'create'])->name('create-schedule');
 });
