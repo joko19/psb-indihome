@@ -18,7 +18,7 @@ use App\Http\Controllers\ScheduleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/data-order');
 });
 Route::get('/register', [RegisterController::class, 'viewRegister'])->name('register');
 Route::post('/postRegister',[RegisterController::class, 'postRegister'])->name('postRegister');
@@ -36,5 +36,5 @@ Route::group(['middleware' => ['auth', 'checkLevel:admin']], function(){
     Route::post('/store-order', [OrderController::class, 'store'])->name('store-order');
 
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
-    Route::get('/schedule/{id}', [ScheduleController::class, 'create'])->name('create-schedule');
+    Route::get('/schedule/create/{date}', [ScheduleController::class, 'create'])->name('create-schedule');
 });

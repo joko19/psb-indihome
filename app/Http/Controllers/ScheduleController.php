@@ -15,7 +15,7 @@ class ScheduleController extends Controller
     public function index()
     {
         
-        $dataOrder = Order::all();
+        $dataOrder = Order::all()->where("status", "order");
         return view('schedule.index', compact('dataOrder'));
     }
 
@@ -24,12 +24,12 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($date)
     {
         
-        $order = Order::find($id);
+        // $order = Order::find($id);
         if (auth()->user()->level == "admin") {
-            return view('schedule.create', compact('order'));
+            return view('schedule.create', compact('date'));
         } else {
             return redirect('schedule');
         }
