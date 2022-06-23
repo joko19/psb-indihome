@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('typeIdentity', 100);
             $table->string('numberIdentity', 100);
             $table->string('phone', 100);
+            $table->string('status', 100)->default("order");
+            $table->string('date', 100)->nullable();
+            $table->string('petugas', 100)->nullable();
             $table->timestamps();
         });
     }
