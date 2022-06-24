@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $dataOrder = Order::all();
+        $dataOrder = Order::orderBy('id', 'DESC')->get();
         return view('data-order.index', compact('dataOrder'));
     }
 

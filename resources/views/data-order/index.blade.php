@@ -54,6 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <th>Jenih Identitas</th>
                                     <th>Nomor Identitas</th>
                                     <th>No HP</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,6 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <td>{{$item->typeIdentity}}</td>
                                     <td>{{$item->numberIdentity}}</td>
                                     <td>{{$item->phone}}</td>
+                                    <td>{{$item->status}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

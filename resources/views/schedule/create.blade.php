@@ -33,26 +33,6 @@
         </div>
 
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
     {{-- Scripts --}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -70,15 +50,16 @@
             var calendar = $('#full_calendar_events').fullCalendar({
                 editable: true,
                 editable: true,
-                events: SITEURL + "/calendar-event",
+                events: "/calendar",
                 displayEventTime: true,
-                // eventRender: function(event, element, view) {
-                //     if (event.allDay === 'true') {
-                //         event.allDay = true;
-                //     } else {
-                //         event.allDay = false;
-                //     }
-                // },
+                eventRender: function(event, element, view) {
+                    console.log(event)
+                    if (event.allDay === 'true') {
+                        event.allDay = true;
+                    } else {
+                        event.allDay = false;
+                    }
+                },
                 selectable: true,
                 selectHelper: true,
                 select: function(event_start, event_end, allDay) {
@@ -94,7 +75,7 @@
                         $.ajax({
                             url: "/schedule",
                             data: {
-                                id: 1,
+                                id: 2,
                                 teknisi: "teknisi 1",
                                 date: event_start,
                                 type: 'create'
@@ -103,15 +84,15 @@
                             success: function(data) {
                                 console.log(data)
                                 // window.location = '/schedule/create/';
-                                // displayMessage("Event created.");
-                                // calendar.fullCalendar('renderEvent', {
-                                //     id: data.id,
-                                //     title: event_name,
-                                //     start: event_start,
-                                //     end: event_end,
-                                //     allDay: allDay
-                                // }, true);
-                                // calendar.fullCalendar('unselect');
+                                displayMessage("Event created.");
+                                calendar.fullCalendar('renderEvent', {
+                                    id: data.id,
+                                    title: event_name,
+                                    start: event_start,
+                                    end: event_end,
+                                    allDay: allDay
+                                }, true);
+                                calendar.fullCalendar('unselect');
                             }
                         });
                     }

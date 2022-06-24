@@ -14,11 +14,15 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-
         $dataOrder = Order::all()->where("status", "order");
         return view('schedule.index', compact('dataOrder'));
     }
 
+    public function calendar()
+    {
+        $dataOrder = Order::all()->where("status", "scheduled");
+        return response()->json($dataOrder);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +30,6 @@ class ScheduleController extends Controller
      */
     public function create($id)
     {
-
         $order = Order::find($id);
         if (auth()->user()->level == "admin") {
             return view('schedule.create', compact('order'));
@@ -44,7 +47,7 @@ class ScheduleController extends Controller
     public function action(Request $request)
     {
         if ($request->type == 'create') {
-            $event = Order::where('id',$request->id)->update([
+            $event = Order::where('id', $request->id)->update([
                 'status'    =>    "scheduled",
                 'teknisi'    =>    $request->teknisi,
                 'date'       => $request->date

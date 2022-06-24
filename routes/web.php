@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth', 'checkLevel:admin']], function(){
     Route::post('/store-order', [OrderController::class, 'store'])->name('store-order');
 
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
+    Route::get('/calendar', [ScheduleController::class, 'calendar'])->name('calendar');
     Route::get('/schedule/{id}', [ScheduleController::class, 'create'])->name('create-schedule');
     Route::post('/schedule', [ScheduleController::class, 'action']);
 });
