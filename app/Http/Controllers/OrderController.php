@@ -48,7 +48,7 @@ class OrderController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'typeIdentity' => $request->typeIdentity,
-            'numberIdentity' => $request->typeIdentity,
+            'numberIdentity' => $request->numberIdentity,
             'phone' => $request->phone
         ]);
         return redirect('data-order')->with('success', 'Berhasil Menambahkan Data Pesanan');

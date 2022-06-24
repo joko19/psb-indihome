@@ -48,10 +48,13 @@ class ScheduleController extends Controller
     public function action(Request $request)
     {
         if ($request->type == 'create') {
+            $time = '';
+            $teknisi = '';
             $event = Order::where('id', $request->id)->update([
                 'status'    => "scheduled",
                 'teknisi'   => $request->teknisi,
-                'date'      => $request->date
+                'date'      => $request->date,
+                'time' => "07.00 - 10.00"
             ]);
             return $event;
             // return response()->json($event);
