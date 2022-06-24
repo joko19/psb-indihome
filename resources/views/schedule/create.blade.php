@@ -53,7 +53,6 @@
                 events: "/calendar",
                 displayEventTime: true,
                 eventRender: function(event, element, view) {
-                    console.log(event)
                     if (event.allDay === 'true') {
                         event.allDay = true;
                     } else {
@@ -63,19 +62,16 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(event_start, event_end, allDay) {
-                    console.log("event_start")
+                    console.log(window.location.href.split('/')[4])
                     var event_start = $.fullCalendar.formatDate(event_start, "Y-MM-DD");
                     // window.location = '/schedule/create/' + event_start;
                     var event_name = confirm("Apakah anda yakin?");
                     console.log(event_name)
                     if (event_name) {
-                        console.log("clicked")
-                        // var event_start = $.fullCalendar.formatDate(event_start, "Y-MM-DD");
-                        console.log(event_start)
                         $.ajax({
                             url: "/schedule",
                             data: {
-                                id: 2,
+                                id: window.location.href.split('/')[4],
                                 teknisi: "teknisi 1",
                                 date: event_start,
                                 type: 'create'
@@ -83,37 +79,11 @@
                             type: "POST",
                             success: function(data) {
                                 console.log(data)
-                                // window.location = '/schedule/create/';
                                 displayMessage("Event created.");
-                                calendar.fullCalendar('renderEvent', {
-                                    id: data.id,
-                                    title: event_name,
-                                    start: event_start,
-                                    end: event_end,
-                                    allDay: allDay
-                                }, true);
-                                calendar.fullCalendar('unselect');
+                                window.location = '/schedule'
                             }
                         });
                     }
-                },
-                eventDrop: function(event, delta) {
-                    var event_start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-                    var event_end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
-                    $.ajax({
-                        url: SITEURL + '/calendar-crud-ajax',
-                        data: {
-                            title: event.event_name,
-                            start: event_start,
-                            end: event_end,
-                            id: event.id,
-                            type: 'edit'
-                        },
-                        type: "POST",
-                        success: function(response) {
-                            displayMessage("Event updated");
-                        }
-                    });
                 },
                 eventClick: function(event) {
                     var eventDelete = confirm("Are you sure?");

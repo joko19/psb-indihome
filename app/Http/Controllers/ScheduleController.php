@@ -14,7 +14,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $dataOrder = Order::all()->where("status", "order");
+        $dataOrder = Order::orderBy('id', 'DESC')->get();
+        // $dataScheduled = Order::all()->where("status", "scheduled");
         return view('schedule.index', compact('dataOrder'));
     }
 
@@ -48,9 +49,9 @@ class ScheduleController extends Controller
     {
         if ($request->type == 'create') {
             $event = Order::where('id', $request->id)->update([
-                'status'    =>    "scheduled",
-                'teknisi'    =>    $request->teknisi,
-                'date'       => $request->date
+                'status'    => "scheduled",
+                'teknisi'   => $request->teknisi,
+                'date'      => $request->date
             ]);
             return $event;
             // return response()->json($event);

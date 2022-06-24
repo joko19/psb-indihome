@@ -48,9 +48,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <div class="progress">
                                     <div class="progress-bar"></div>
                                 </div>
-                                <!-- <span class="info-box-number">Teknisi 1</span>
-                                <span>01/06/2022</span> -->
-                                <a href="/schedule/{{$item->id}}" type="button" class="btn btn-info">Atur Jadwal</a>
+                                <span class="info-box-number">{{$item->teknisi ? $item->teknisi : '-' }}</span>
+                                <span>{{$item->date ? $item->date : '-' }}</span>
+                                <a href="/schedule/{{$item->id}}" type="button" class="btn btn-info">{{$item->date ? 'Ubah' : 'Atur' }} Jadwal</a>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
