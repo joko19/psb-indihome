@@ -14,7 +14,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        
+
         $dataOrder = Order::all()->where("status", "order");
         return view('schedule.index', compact('dataOrder'));
     }
@@ -24,12 +24,12 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($date)
+    public function create($id)
     {
-        
-        // $order = Order::find($id);
+
+        $order = Order::find($id);
         if (auth()->user()->level == "admin") {
-            return view('schedule.create', compact('date'));
+            return view('schedule.create', compact('order'));
         } else {
             return redirect('schedule');
         }
@@ -41,9 +41,17 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function action(Request $request)
     {
-        //
+        if ($request->type == 'create') {
+            $event = Order::where('id',$request->id)->update([
+                'status'    =>    "scheduled",
+                'teknisi'    =>    $request->teknisi,
+                'date'       => $request->date
+            ]);
+            return $event;
+            // return response()->json($event);
+        }
     }
 
     /**
