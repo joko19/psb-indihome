@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('phone', 100);
             $table->string('status', 100)->default("order");
             $table->string('date', 100)->nullable();
+            $table->string('time', 100)->nullable();
+            $table->string('day', 100)->nullable();
             $table->string('teknisi', 100)->nullable();
             $table->timestamps();
         });

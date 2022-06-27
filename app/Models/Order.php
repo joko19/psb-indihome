@@ -12,6 +12,6 @@ class Order extends Model
     protected $table = "orders";
     protected $primaryKey = "id";
     protected $fillable = [
-        'id', 'name', 'address', 'typeIdentity', 'numberIdentity', 'phone', 'status', 'date', 'teknisi'
+        'id', 'name', 'address', 'typeIdentity', 'numberIdentity', 'phone', 'status', 'date', 'time', 'day', 'teknisi'
     ];
 }

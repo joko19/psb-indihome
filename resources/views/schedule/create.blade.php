@@ -80,7 +80,7 @@
                             success: function(data) {
                                 console.log(data)
                                 displayMessage("Event created.");
-                                window.location = '/schedule'
+                                // window.location = '/schedule'
                             }
                         });
                     }

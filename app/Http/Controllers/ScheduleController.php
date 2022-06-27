@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
 use Illuminate\Http\Request;
+
+use function PHPSTORM_META\map;
 
 class ScheduleController extends Controller
 {
@@ -50,14 +53,24 @@ class ScheduleController extends Controller
         if ($request->type == 'create') {
             $time = '';
             $teknisi = '';
-            $event = Order::where('id', $request->id)->update([
-                'status'    => "scheduled",
-                'teknisi'   => $request->teknisi,
-                'date'      => $request->date,
-                'time' => "07.00 - 10.00"
-            ]);
-            return $event;
-            // return response()->json($event);
+            $teknisi = [];
+            $all = Order::get();
+            // $allTeknisi = User::all()->where('level', 'teknisi');
+            // $array = (array) $allTeknisi;
+            // $rand_keys = array_rand($array, 1);
+            // @foreach($allTeknisi as $item)
+            // $event = Order::where('id', $request->id)->update([
+            //     'status'    => "scheduled",
+            //     'teknisi'   => $request->teknisi,
+            //     'date'      => $request->date,
+            //     'time' => "07.00 - 10.00",
+            //     'day' => "sunday"
+            // ]);
+            // return $event;
+            //  $event = Order::all()->where('id', $request->id);
+            //  dd($event);
+            // return $all;
+            return response()->json($all);
         }
     }
 
