@@ -21,10 +21,17 @@ class ScheduleController extends Controller
         // $dataScheduled = Order::all()->where("status", "scheduled");
         return view('schedule.index', compact('dataOrder'));
     }
-
-    public function calendar()
+    public function chooseTeknisi($id)
     {
-        $dataOrder = Order::all()->where("status", "scheduled");
+        $allTeknisi = User::all()->where('level', 'teknisi');
+        // $dataScheduled = Order::all()->where("status", "scheduled");
+        return view('schedule.choose-teknisi', compact('allTeknisi', 'id'));
+    }
+
+    public function calendar($teknisi)
+    {
+        $teknisi = User::find($teknisi);
+        $dataOrder = Order::all()->where("status", "scheduled")->where('teknisi', $teknisi->name);
         return response()->json($dataOrder);
     }
     /**
@@ -32,11 +39,13 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($teknisi)
     {
-        $order = Order::find($id);
+        $dataTeknisi = User::find($teknisi);
+        $dataOrder = Order::all()->where("status", "scheduled")->where('teknisi', $dataTeknisi->name);
         if (auth()->user()->level == "admin") {
-            return view('schedule.create', compact('order'));
+            return view('schedule.create', compact('dataOrder'));
+            // dd($dataOrder);
         } else {
             return redirect('schedule');
         }
@@ -52,25 +61,38 @@ class ScheduleController extends Controller
     {
         if ($request->type == 'create') {
             $time = '';
-            $teknisi = '';
-            $teknisi = [];
-            $all = Order::get();
-            // $allTeknisi = User::all()->where('level', 'teknisi');
+            $teknisi = User::find($request->teknisi);
+            // $arrTeknisi = ["", "aa"];
+            // $all = Order::all()->where('status', 'scheduled');
+            // $totalOrder = count($all);
+            // if($totalOrder == 0){
+            //     $teknisi = $arrTeknisi[0];
+            // } else{
+            //     $lastOrder = end($all);
+            //     $lastTeknisi = $lastOrder["teknisi"];
+            //     $teknisi = "hello";
+            // }
+            // for($i = 0; $i< $totalOrder; $i++){
+            //     array_push($teknisi, $all.$i->teknisi);
+            //  }
+            // $orderByDate = Order::where('date', $request->date);
             // $array = (array) $allTeknisi;
             // $rand_keys = array_rand($array, 1);
             // @foreach($allTeknisi as $item)
-            // $event = Order::where('id', $request->id)->update([
-            //     'status'    => "scheduled",
-            //     'teknisi'   => $request->teknisi,
-            //     'date'      => $request->date,
-            //     'time' => "07.00 - 10.00",
-            //     'day' => "sunday"
-            // ]);
-            // return $event;
+            $event = Order::where('id', $request->id)->update([
+                'status'    => "scheduled",
+                'teknisi'   => $teknisi->name,
+                'date'      => $request->date,
+                'time' => "07.00 - 10.00",
+                'day' => "sunday"
+            ]);
+            return $event;
             //  $event = Order::all()->where('id', $request->id);
             //  dd($event);
             // return $all;
-            return response()->json($all);
+            // $arr = json_decode(json_encode ( $allTeknisi ) , true);
+            // $arr = (array) $allTeknisi;
+            // return $teknisi->name;
         }
     }
 

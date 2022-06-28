@@ -50,7 +50,7 @@
             var calendar = $('#full_calendar_events').fullCalendar({
                 editable: true,
                 editable: true,
-                events: "/calendar",
+                events: "/calendar/"+window.location.href.split('/')[5],
                 displayEventTime: true,
                 eventRender: function(event, element, view) {
                     if (event.allDay === 'true') {
@@ -62,6 +62,7 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(event_start, event_end, allDay) {
+                    console.log(allDay)
                     console.log(window.location.href.split('/')[4])
                     var event_start = $.fullCalendar.formatDate(event_start, "Y-MM-DD");
                     // window.location = '/schedule/create/' + event_start;
@@ -72,7 +73,7 @@
                             url: "/schedule",
                             data: {
                                 id: window.location.href.split('/')[4],
-                                teknisi: "teknisi 1",
+                                teknisi: window.location.href.split('/')[5],
                                 date: event_start,
                                 type: 'create'
                             },
@@ -80,7 +81,7 @@
                             success: function(data) {
                                 console.log(data)
                                 displayMessage("Event created.");
-                                // window.location = '/schedule'
+                                window.location = '/schedule'
                             }
                         });
                     }
