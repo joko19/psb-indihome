@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\TimerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,9 @@ Route::group(['middleware' => ['auth', 'checkLevel:admin']], function(){
     Route::get('/calendar/{teknisi}', [ScheduleController::class, 'calendar'])->name('calendar');
     Route::get('/schedule/{id}/{teknisi}', [ScheduleController::class, 'create'])->name('create-schedule');
     Route::post('/schedule', [ScheduleController::class, 'action']);
+});
+
+Route::group(['middleware' => ['auth', 'checkLevel:teknisi']], function(){
+    Route::get('/timer', [TimerController::class, 'index'])->name('timer');
+    Route::get('/timer/{id}', [TimerController::class, 'timer'])->name('timer-count');
 });

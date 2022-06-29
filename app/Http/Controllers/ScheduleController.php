@@ -76,10 +76,13 @@ class ScheduleController extends Controller
             $count = count($shift);
             if($count == 0){
                 $time = '07.00 - 10.00';
+                $deadline = '10:00:00';
             } else if($count == 1){
                 $time = '10.00 - 13.00';
+                $deadline = '13:00:00';
             } else if ($count == 2) {
                 $time = '13.30 - 16.30';
+                $deadline = '16:00:00';
             }
             // $arrTeknisi = ["", "aa"];
             // $all = Order::all()->where('status', 'scheduled');

@@ -28,7 +28,7 @@
                         @endif
                         @if (auth()->user()->level == "teknisi")
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('timer')}}" class="nav-link">
                                 <p>Timer</p>
                             </a>
                         </li>
