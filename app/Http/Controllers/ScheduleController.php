@@ -30,8 +30,10 @@ class ScheduleController extends Controller
 
     public function calendar($teknisi)
     {
-        $teknisi = User::find($teknisi);
-        $dataOrder = Order::all()->where("status", "scheduled")->where('teknisi', $teknisi->name);
+        $dataTeknisi = User::find($teknisi);
+        // $dataOrder = Order::all();
+        $dataOrder = Order::all()->where("teknisi", "teknisi 2");
+        // $dataOrder = Order::all()->where(["status" => "scheduled", "teknisi" => $dataTeknisi->name]);
         return response()->json($dataOrder);
     }
     /**
@@ -39,12 +41,19 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($teknisi)
+    public function create(Request $request)
     {
-        $dataTeknisi = User::find($teknisi);
-        $dataOrder = Order::all()->where("status", "scheduled")->where('teknisi', $dataTeknisi->name);
+        // $dataTeknisi = User::find($teknisi);
+        // $dataOrder = Order::all()->where("status", "scheduled")->where('teknisi', $dataTeknisi->name);
         if (auth()->user()->level == "admin") {
-            return view('schedule.create', compact('dataOrder'));
+            if ($request->ajax()) {
+                $data = Order::whereDate('start', '>=', $request->start)
+                    ->whereDate('end',   '<=', $request->end)
+                    ->get(['id', 'title', 'start', 'end']);
+                return response()->json($data);
+            }
+            return view('schedule.create');
+            // return view('schedule.create', compact('dataOrder', 'dataTeknisi'));
             // dd($dataOrder);
         } else {
             return redirect('schedule');
@@ -61,7 +70,17 @@ class ScheduleController extends Controller
     {
         if ($request->type == 'create') {
             $time = '';
+            $time = '07.00 - 10.00';
             $teknisi = User::find($request->teknisi);
+            $shift = Order::where(['teknisi' => $teknisi->name, 'date' => $request->date])->get();
+            $count = count($shift);
+            if($count == 0){
+                $time = '07.00 - 10.00';
+            } else if($count == 1){
+                $time = '10.00 - 13.00';
+            } else if ($count == 2) {
+                $time = '13.30 - 16.30';
+            }
             // $arrTeknisi = ["", "aa"];
             // $all = Order::all()->where('status', 'scheduled');
             // $totalOrder = count($all);
@@ -83,10 +102,10 @@ class ScheduleController extends Controller
                 'status'    => "scheduled",
                 'teknisi'   => $teknisi->name,
                 'date'      => $request->date,
-                'time' => "07.00 - 10.00",
+                'time' => $time,
                 'day' => "sunday"
             ]);
-            return $event;
+            return $count;
             //  $event = Order::all()->where('id', $request->id);
             //  dd($event);
             // return $all;

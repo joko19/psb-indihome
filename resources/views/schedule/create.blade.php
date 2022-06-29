@@ -53,6 +53,9 @@
                 events: "/calendar/"+window.location.href.split('/')[5],
                 displayEventTime: true,
                 eventRender: function(event, element, view) {
+                    console.log("hello ")
+                    // console.log(element)
+                    // console.log(event)
                     if (event.allDay === 'true') {
                         event.allDay = true;
                     } else {
@@ -62,12 +65,9 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(event_start, event_end, allDay) {
-                    console.log(allDay)
-                    console.log(window.location.href.split('/')[4])
                     var event_start = $.fullCalendar.formatDate(event_start, "Y-MM-DD");
-                    // window.location = '/schedule/create/' + event_start;
+
                     var event_name = confirm("Apakah anda yakin?");
-                    console.log(event_name)
                     if (event_name) {
                         $.ajax({
                             url: "/schedule",
