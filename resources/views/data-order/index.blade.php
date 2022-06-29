@@ -51,10 +51,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <tr>
                                     <th>Nama</th>
                                     <th>Alamat</th>
+                                    <th>No HP</th>
+                                    @if (auth()->user()->level == "admin")
                                     <th>Jenih Identitas</th>
                                     <th>Nomor Identitas</th>
-                                    <th>No HP</th>
                                     <th>Status</th>
+                                    @endif
+                                    @if (auth()->user()->level == "teknisi")
+                                    <th>Tanggal</th>
+                                    <th>Waktu</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,10 +68,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <tr>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->address}}</td>
+                                    <td>{{$item->phone}}</td>
+                                    @if (auth()->user()->level == "admin")
                                     <td>{{$item->typeIdentity}}</td>
                                     <td>{{$item->numberIdentity}}</td>
-                                    <td>{{$item->phone}}</td>
                                     <td>{{$item->status}}</td>
+                                    @endif
+                                    @if (auth()->user()->level == "teknisi")
+                                    <td>{{$item->date}}</td>
+                                    <td>{{$item->time}}</td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -100,4 +112,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @include('Template.script')
     @include('sweetalert::alert')
 </body>
+
 </html>

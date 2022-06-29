@@ -15,8 +15,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $dataOrder = Order::orderBy('id', 'DESC')->get();
-        return view('data-order.index', compact('dataOrder'));
+        $user = Auth::user();
+        if ($user->level == "admin") {
+            $dataOrder = Order::orderBy('id', 'DESC')->get();
+            return view('data-order.index', compact('dataOrder'));
+        } else {
+            $dataOrder = Order::where('teknisi', $user->name)->orderBy('id', 'DESC')->get();
+            return view('data-order.index', compact('dataOrder'));
+        }
     }
 
     /**
