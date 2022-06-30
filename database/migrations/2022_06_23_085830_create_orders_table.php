@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string('status', 100)->default("order");
             $table->string('date', 100)->nullable();
             $table->string('time', 100)->nullable();
+            $table->string('prepare', 100)->nullable();
+            $table->string('ontheway', 100)->nullable();
+            $table->string('process', 100)->nullable();
+            $table->string('finishing', 100)->nullable();
             $table->string('deadline', 100)->nullable();
             $table->string('day', 100)->nullable();
             $table->string('teknisi', 100)->nullable();

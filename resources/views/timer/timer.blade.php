@@ -39,8 +39,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- /.content-header -->
 
             <!-- Main content -->
+            <div style="margin: 12px;">
+            <button style="border-radius: 5px; background-color: green; color: white; ">Manajemen Janji</button>
+            <button style="border-radius: 5px;">Menuju Lokasi Pemasangan</button>
+            <button style="border-radius: 5px;">Proses Pemasangan</button>
+            <button style="border-radius: 5px;">Penyiapan Berita Acara</button>
+            </div>
             <h1 id="demo" class="text-center h1" style="font-size: 72px;"></h1>
-            
         </div>
     </div>
     <!-- /.content -->
@@ -65,7 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script>
         // Set the date we're counting down to
-        var time = "06:20:00";
+        var time = "10:20:00";
         var start_time = time.split(":")[0] - 3 + ":" + time.split(":")[1] + ":" + time.split(":")[2];
         var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
         var date = "30-06-2022";
