@@ -30,6 +30,13 @@ class TimerController extends Controller
         return view('timer.timer');
     }
 
+    public function getTime($id)
+    {
+        $dataOrder = Order::find($id)->get();
+        
+        return $dataOrder;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
