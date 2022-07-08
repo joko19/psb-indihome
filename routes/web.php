@@ -47,4 +47,5 @@ Route::group(['middleware' => ['auth', 'checkLevel:teknisi']], function(){
     Route::get('/timer', [TimerController::class, 'index'])->name('timer');
     Route::get('/timer/{id}', [TimerController::class, 'timer'])->name('timer-count');
     Route::get('/timer/{id}/getTime', [TimerController::class, 'getTime'])->name('getTime');
+    Route::post('/timer/{id}/setTime', [TimerController::class, 'update'])->name('setTime');
 });

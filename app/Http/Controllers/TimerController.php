@@ -16,7 +16,7 @@ class TimerController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $dataOrder = Order::where(['teknisi' => $user->name])->get();
+        $dataOrder = Order::where(['teknisi' => $user->name, 'status' => 'scheduled'])->get();
         return view('timer.index', compact('dataOrder'));
     }
 
@@ -32,7 +32,7 @@ class TimerController extends Controller
 
     public function getTime($id)
     {
-        $dataOrder = Order::find($id)->get();
+        $dataOrder = Order::where('id', $id)->get();
         
         return $dataOrder;
     }
@@ -80,6 +80,12 @@ class TimerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $event = Order::where('id', $request->id)->update([
+            'prepare'   => $request->prepare,
+            'ontheway'  => $request->ontheway,
+            'process'   => $request->process,
+            'finishing' => $request->finishing,
+        ]);
     }
 
     /**

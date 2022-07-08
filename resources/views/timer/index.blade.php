@@ -55,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <span class="info-box-number">{{$item->time }}</span>
                                 <span>{{$item->date ? $item->date : '-' }}</span>
-                                <a href="/timer/{{$item->id}}" type="button" class="btn btn-info">Mulai Kerja</a>
+                                <a href="/timer/{{$item->id}}" type="button" class="btn btn-info">View</a>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
