@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'checkLevel:admin,teknisi']], function(){
     Route::get('/data-order', [OrderController::class, 'index'])->name('data-order');
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::get('/report/{id}', [ReportController::class, 'show'])->name('show-report');
+    Route::get('/report/{id}/print', [ReportController::class, 'print'])->name('print-report');
 });
 
 Route::group(['middleware' => ['auth', 'checkLevel:admin']], function(){

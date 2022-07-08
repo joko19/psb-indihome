@@ -114,9 +114,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <!-- this row will not appear when printing -->
                                 <div class="row no-print">
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                            <i class="fas fa-download"></i> Download PDF
-                                        </button>
+                                        <a href="/report/{{$dataReport->id}}/print" type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                            <i class="fas fa-download"></i> Print</a>
                                     </div>
                                 </div>
                             </div>

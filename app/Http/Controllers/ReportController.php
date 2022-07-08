@@ -58,6 +58,11 @@ class ReportController extends Controller
         $dataReport = Order::find($id);
         return view('report.report', compact('dataReport'));
     }
+    public function print($id)
+    {
+        $dataReport = Order::find($id);
+        return view('report.print', compact('dataReport'));
+    }
 
     /**
      * Show the form for editing the specified resource.
