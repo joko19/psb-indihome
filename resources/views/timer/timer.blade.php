@@ -39,12 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- /.content-header -->
 
             <!-- Main content -->
-            <div style="margin: 12px;">
-                <!-- <div id="deadline"></div> -->
-                <button style="border-radius: 5px; background-color: green; color: white; ">Manajemen Janji</button>
-                <button style="border-radius: 5px;">Menuju Lokasi Pemasangan</button>
-                <button style="border-radius: 5px;">Proses Pemasangan</button>
-                <button style="border-radius: 5px;">Penyiapan Berita Acara</button>
+            <div style="margin: 12px;" id="progress">
             </div>
             <div class="container">
                 <div class="row">
@@ -100,10 +95,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
-        console.log("hello world")
-        console.log(window.location.href.split('/')[4])
-        var runningtime = []
-
         $(document).ready(function() {
             var data = []
             // var deadline = ""
@@ -117,7 +108,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 url: "/timer/" + window.location.href.split('/')[4] + "/getTime",
                 type: "GET",
                 success: function(res) {
-                    $("#deadline").append(res[0].time);
+                    var prepare = res[0].prepare ? "<button style='border-radius: 5px; margin:4px; '>Manajemen Janji</button>" : "<button style='border-radius: 5px; margin:4px; background-color: green; color: white; '>Manajemen Janji</button>";
+                    var otw = !res[0].ontheway && !res[0].prepare ? "<button style='border-radius: 5px; margin:4px;'>Menuju Lokasi Pemasangan</button>" : res[0].ontheway ? "<button style='border-radius: 5px; margin:4px; '>Menuju Lokasi Pemasangan</button>" : "<button style='border-radius: 5px; margin:4px; background-color: green; color: white;'>Menuju Lokasi Pemasangan</button>";
+                    var pemasangan = !res[0].process && !res[0].ontheway ? "<button style='border-radius: 5px; margin:4px;'>Pemasangan</button>" : res[0].process ? "<button style='border-radius: 5px; margin:4px; '>Pemasangan</button>" : "<button style='border-radius: 5px; margin:4px; background-color: green; color: white;'>Pemasangan</button>";
+                    var finish = res[0].process ? "<button style='border-radius: 5px; margin:4px; background-color: green; color: white;'>Penyiapan Berita Acara</button>" : "<button style='border-radius: 5px; margin:4px; '>Penyiapan Berita Acara</button>";
+                    $("#progress").append(prepare, otw, pemasangan, finish)
                     var d = res[0].time.split("-")[1] + ".00"
                     var deadline = d.split(".").join(":")
                     // console.log(deadline)
@@ -157,7 +152,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                        runningtime.push(hours + "h " + minutes + "m " + seconds + "s ")
                         // console.log(hours + "h " + minutes + "m " + seconds + "s ")
                         // console.log(date)
                         // console.log(dateNow)
@@ -229,9 +223,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 }
             });
         })
-        // var z = document.getElementById("demo").
-        // console.log(z)
-        // console.log(runningtime[0])
     </script>
     @include('Template.script')
     @include('sweetalert::alert')
