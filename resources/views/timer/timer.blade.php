@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row">
                     <div class="col text-center">
                         <h1 id="demo" class="text-center h1" style="font-size: 72px;"></h1>
-                        <button class="btn btn-success m-auto">Finish</button>
+                        <button class="btn btn-success m-auto" data-toggle="modal" data-target="#exampleModal">Finish this process</button>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin telah menyelesaikan proses ini?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- <div class="modal-body">
+                    ...
+                </div> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Belum</button>
+                    <button type="button" class="btn btn-primary" id="finish">Iya</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
@@ -83,20 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script>
         console.log("hello world")
         console.log(window.location.href.split('/')[4])
-
-        function formatDate(date) {
-            var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
-
-            if (month.length < 2)
-                month = '0' + month;
-            if (day.length < 2)
-                day = '0' + day;
-
-            return [year, month, day].join('-');
-        }
+        var runningtime = []
 
         $(document).ready(function() {
             var data = []
@@ -118,10 +124,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     // var start_time = time.split(":")[0] - 3 + ":" + time.split(":")[1] + ":" + time.split(":")[2];
                     var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
                     var date = res[0].date;
-                    console.log(date)
                     // var start = month[date.split("-")[1] - 1] + " " + date.split("-")[0] + "," + " " + date.split("-")[2] + " " + start_time;
                     var newDate = month[date.split("-")[1] - 1] + " " + date.split("-")[0] + "," + " " + date.split("-")[2] + " " + deadline;
-                    console.log(newDate)
                     var countDownDate = new Date(newDate).getTime();
 
                     // var countDownstartDate = new Date(start).getTime();
@@ -153,9 +157,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        runningtime.push(hours + "h " + minutes + "m " + seconds + "s ")
                         // console.log(hours + "h " + minutes + "m " + seconds + "s ")
-                        console.log(date)
-                        console.log(dateNow)
+                        // console.log(date)
+                        // console.log(dateNow)
                         if (date === dateNow) {
                             if (hours > 2) {
                                 document.getElementById("demo").innerHTML = res[0].time;
@@ -182,45 +187,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }, 1000);
 
                     // send data
-
-                    document.querySelector('#from1').addEventListener('submit', function(e) {
-                        var form = this;
-
-                        e.preventDefault(); // <--- prevent form from submitting
-
-                        swal({
-                            title: "Are you sure?",
-                            text: "You will not be able to recover this imaginary file!",
-                            icon: "warning",
-                            buttons: [
-                                'No, cancel it!',
-                                'Yes, I am sure!'
-                            ],
-                            dangerMode: true,
-                        }).then(function(isConfirm) {
-                            if (isConfirm) {
-                                swal({
-                                    title: 'Shortlisted!',
-                                    text: 'Candidates are successfully shortlisted!',
-                                    icon: 'success'
-                                }).then(function() {
-                                    form.submit(); // <--- submit form programmatically
-                                });
-                            } else {
-                                swal("Cancelled", "Your imaginary file is safe :)", "error");
-                            }
-                        })
+                    $('#finish').click(function() {
+                        var d = res[0].time.split("-")[0] + ".00"
+                        var startTime = d.split(".").join(":")
+                        var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
+                        var date = res[0].date;
+                        var start = month[date.split("-")[1] - 1] + " " + date.split("-")[0] + "," + " " + date.split("-")[2] + " " + startTime;
+                        var startCount = new Date(start).getTime();
+                        var x = setInterval(function() {
+                            var now = new Date().getTime();
+                            var distance = now - startCount;
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                            $.ajax({
+                                url: "/timer/" + window.location.href.split('/')[4] + "/setTime",
+                                data: {
+                                    "_token": "{{ csrf_token() }}",
+                                    estimate: hours + "h " + minutes + "m " + seconds + "s "
+                                },
+                                type: 'POST',
+                                success: function(result) {
+                                    console.log(result.isFinished)
+                                    if (result.isFinished) {
+                                        window.location = "/timer/"
+                                    } else {
+                                        window.location = "/timer/" + window.location.href.split('/')[4]
+                                    }
+                                }
+                            });
+                        }, 1000);
                     });
-                    $.ajax({
-                        url: "/timer/" + window.location.href.split('/')[4] + "/setTime",
-                        type: "POST",
-                        success: function(res) {
-                            console.log(res)
-                        }
-                    })
+
+                    // $.ajax({
+                    //     url: "/timer/" + window.location.href.split('/')[4] + "/setTime",
+                    //     type: "POST",
+                    //     success: function(res) {
+                    //         console.log(res)
+                    //     }
+                    // })
                 }
             });
         })
+        // var z = document.getElementById("demo").
+        // console.log(z)
+        // console.log(runningtime[0])
     </script>
     @include('Template.script')
     @include('sweetalert::alert')

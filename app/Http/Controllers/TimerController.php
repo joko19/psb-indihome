@@ -33,7 +33,7 @@ class TimerController extends Controller
     public function getTime($id)
     {
         $dataOrder = Order::where('id', $id)->get();
-        
+
         return $dataOrder;
     }
 
@@ -79,13 +79,34 @@ class TimerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $event = Order::where('id', $request->id)->update([
-            'prepare'   => $request->prepare,
-            'ontheway'  => $request->ontheway,
-            'process'   => $request->process,
-            'finishing' => $request->finishing,
-        ]);
+        $prepare = Order::where(['id' => $request->id, 'prepare' => NULL])->count();
+        if ($prepare) {
+            Order::find($id)->update([
+                'prepare'   => $request->estimate,
+            ]);
+            return response()->json(['isFinished' => false]);
+        }
+        $otw = Order::where(['id' => $request->id, 'ontheway' => NULL])->count();
+        if ($otw) {
+            Order::find($id)->update([
+                'ontheway'   => $request->estimate,
+            ]);
+            return response()->json(['isFinished' => false]);
+        }
+        $process = Order::where(['id' => $request->id, 'process' => NULL])->count();
+        if ($process) {
+            Order::find($id)->update([
+                'process'   => $request->estimate,
+            ]);
+            return response()->json(['isFinished' => false]);
+        }
+        $finishing = Order::where(['id' => $request->id, 'finishing' => NULL])->count();
+        if ($finishing) {
+            Order::find($id)->update([
+                'finishing'   => $request->estimate,
+            ]);
+            return response()->json(['isFinished' => true]);
+        }
     }
 
     /**
