@@ -104,6 +104,7 @@ class TimerController extends Controller
         if ($finishing) {
             Order::find($id)->update([
                 'finishing'   => $request->estimate,
+                'status' => 'finished'
             ]);
             return response()->json(['isFinished' => true]);
         }

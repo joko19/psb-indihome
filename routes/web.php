@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TimerController;
 
@@ -30,6 +31,7 @@ Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth', 'checkLevel:admin,teknisi']], function(){
     Route::get('/data-order', [OrderController::class, 'index'])->name('data-order');
+    Route::get('/report', [ReportController::class, 'index'])->name('report');
 });
 
 Route::group(['middleware' => ['auth', 'checkLevel:admin']], function(){

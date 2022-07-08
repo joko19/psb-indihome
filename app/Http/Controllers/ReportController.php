@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +18,11 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         if ($user->level == "admin") {
-            $dataOrder = Order::orderBy('id', 'DESC')->get();
-            return view('data-order.index', compact('dataOrder'));
+            $dataReport = Order::where(['status' => 'finished'])->orderBy('id', 'DESC')->get();
+            return view('report.index', compact('dataReport'));
         } else {
-            $dataOrder = Order::where(['teknisi' => $user->name, 'status' => 'scheduled'])->orderBy('id', 'DESC')->get();
-            return view('data-order.index', compact('dataOrder'));
+            $dataReport = Order::where(['teknisi' => $user->name, 'status' => 'finished'])->orderBy('id', 'DESC')->get();
+            return view('report.index', compact('dataReport'));
         }
     }
 
@@ -30,15 +31,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-
-        // dd(auth()->user()->level);
-        if (auth()->user()->level == "admin") {
-            return view('data-order.create');
-        } else {
-            return redirect('data-order');
-        }
+        //
     }
 
     /**
@@ -49,15 +44,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        Order::create([
-            'name' => $request->name,
-            'address' => $request->address,
-            'typeIdentity' => $request->typeIdentity,
-            'numberIdentity' => $request->numberIdentity,
-            'phone' => $request->phone
-        ]);
-        return redirect('data-order')->with('success', 'Berhasil Menambahkan Data Pesanan');
+        //
     }
 
     /**

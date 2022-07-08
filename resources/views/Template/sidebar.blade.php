@@ -34,7 +34,7 @@
                         </li>
                         @endif
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('report')}}" class="nav-link">
                                 <p>Report</p>
                             </a>
                         </li>
