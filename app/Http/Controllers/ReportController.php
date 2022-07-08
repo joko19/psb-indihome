@@ -55,7 +55,8 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        //
+        $dataReport = Order::find($id);
+        return view('report.report', compact('dataReport'));
     }
 
     /**
