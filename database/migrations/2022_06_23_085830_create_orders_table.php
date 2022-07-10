@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('ontheway', 100)->nullable();
             $table->string('process', 100)->nullable();
             $table->string('finishing', 100)->nullable();
-            $table->string('deadline', 100)->nullable();
+            $table->string('endStep', 100)->nullable();
             $table->string('day', 100)->nullable();
             $table->string('teknisi', 100)->nullable();
             $table->timestamps();

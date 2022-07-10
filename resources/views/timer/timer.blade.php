@@ -177,34 +177,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 document.getElementById("demo").innerHTML = res[0].date + " " + res[0].time;
                             }
                         }
-                        // console.log(hours)
                     }, 1000);
 
+                    var startTime = res[0].endStep ? res[0].endStep : d.split(".").join(":")
+                    console.log(startTime)
                     // send data
                     $('#finish').click(function() {
                         var d = res[0].time.split("-")[0] + ".00"
-                        var startTime = d.split(".").join(":")
+                        var startTime = res[0].endStep ? res[0].endStep : d.split(".").join(":")
                         var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
                         var date = res[0].date;
                         var start = month[date.split("-")[1] - 1] + " " + date.split("-")[0] + "," + " " + date.split("-")[2] + " " + startTime;
                         var startCount = new Date(start).getTime();
+                        console.log(startTime)
                         var x = setInterval(function() {
                             var now = new Date().getTime();
                             var distance = now - startCount;
                             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            var latestTime = new Date()
+                            var latestHour = latestTime.getHours() < 10 ? "0" + latestTime.getHours() : latestTime.getHours()
+                            var latestMinute = latestTime.getMinutes() < 10 ? "0" + latestTime.getMinutes() : latestTime.getMinutes()
+                            var latestSecond = latestTime.getSeconds() < 10 ? "0" + latestTime.getSeconds() : latestTime.getSeconds()
                             $.ajax({
                                 url: "/timer/" + window.location.href.split('/')[4] + "/setTime",
                                 data: {
                                     "_token": "{{ csrf_token() }}",
-                                    estimate: hours + "h " + minutes + "m " + seconds + "s "
+                                    estimate: hours + "h " + minutes + "m " + seconds + "s ",
+                                    endStep: latestHour + ":" + latestMinute + ":" + latestSecond
                                 },
                                 type: 'POST',
                                 success: function(result) {
                                     console.log(result.isFinished)
                                     if (result.isFinished) {
-                                        window.location = "/timer/"
+                                        window.location = "/report/"
                                     } else {
                                         window.location = "/timer/" + window.location.href.split('/')[4]
                                     }

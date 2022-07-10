@@ -83,6 +83,7 @@ class TimerController extends Controller
         if ($prepare) {
             Order::find($id)->update([
                 'prepare'   => $request->estimate,
+                'endStep' => $request->endStep
             ]);
             return response()->json(['isFinished' => false]);
         }
@@ -90,6 +91,7 @@ class TimerController extends Controller
         if ($otw) {
             Order::find($id)->update([
                 'ontheway'   => $request->estimate,
+                'endStep' => $request->endStep
             ]);
             return response()->json(['isFinished' => false]);
         }
@@ -97,6 +99,7 @@ class TimerController extends Controller
         if ($process) {
             Order::find($id)->update([
                 'process'   => $request->estimate,
+                'endStep' => $request->endStep
             ]);
             return response()->json(['isFinished' => false]);
         }
@@ -104,6 +107,7 @@ class TimerController extends Controller
         if ($finishing) {
             Order::find($id)->update([
                 'finishing'   => $request->estimate,
+                'endStep' => $request->endStep,
                 'status' => 'finished'
             ]);
             return response()->json(['isFinished' => true]);
