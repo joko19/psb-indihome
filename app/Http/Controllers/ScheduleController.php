@@ -31,9 +31,7 @@ class ScheduleController extends Controller
     public function calendar($teknisi)
     {
         $dataTeknisi = User::find($teknisi);
-        // $dataOrder = Order::all();
-        $dataOrder = Order::all()->where("teknisi", "teknisi 2");
-        // $dataOrder = Order::all()->where(["status" => "scheduled", "teknisi" => $dataTeknisi->name]);
+        $dataOrder = Order::where(['teknisi' => $dataTeknisi->name])->get();
         return response()->json($dataOrder);
     }
     /**
@@ -80,6 +78,9 @@ class ScheduleController extends Controller
                 $time = '10.00 - 13.00';
             } else if ($count == 2) {
                 $time = '13.30 - 16.30';
+            } else {
+                $time = "full";
+                return response()->json($time);
             }
             $event = Order::where('id', $request->id)->update([
                 'status'    => "scheduled",

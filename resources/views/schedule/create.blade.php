@@ -49,7 +49,7 @@
             var calendar = $('#full_calendar_events').fullCalendar({
                 editable: true,
                 editable: true,
-                events: "/calendar/"+window.location.href.split('/')[5],
+                events: "/calendar/" + window.location.href.split('/')[5],
                 displayEventTime: true,
                 eventRender: function(event, element, view) {
                     console.log("hello ")
@@ -78,8 +78,12 @@
                             },
                             type: "POST",
                             success: function(data) {
-                                displayMessage("Event created.");
-                                window.location = '/schedule'
+                                if (data !== "full") {
+                                    displayMessage("Success");
+                                    window.location = '/schedule';
+                                } else {
+                                    alertMessage("Jadwal Penuh, Silahkan pilih hari lain");
+                                }
                             }
                         });
                     }
@@ -106,6 +110,10 @@
 
         function displayMessage(message) {
             toastr.success(message, 'Event');
+        }
+
+        function alertMessage(message) {
+            toastr.error(message, 'Full');
         }
     </script>
 </body>
