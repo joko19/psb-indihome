@@ -46,15 +46,17 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            var todayDate = new Date().toISOString().slice(0, 10);
+            var dayClick
             var calendar = $('#full_calendar_events').fullCalendar({
+                validRange: {
+                    start: todayDate,
+                },
                 editable: true,
                 editable: true,
                 events: "/calendar/" + window.location.href.split('/')[5],
                 displayEventTime: true,
                 eventRender: function(event, element, view) {
-                    console.log("hello ")
-                    // console.log(element)
-                    // console.log(event)
                     if (event.allDay === 'true') {
                         event.allDay = true;
                     } else {
@@ -63,9 +65,13 @@
                 },
                 selectable: true,
                 selectHelper: true,
+                dayClick: function(date, jsEvent, view){
+                    dayClick = date.day();
+                },
                 select: function(event_start, event_end, allDay) {
                     var event_start = $.fullCalendar.formatDate(event_start, "Y-MM-DD");
-
+                    // var day = $.fullCalendar.formatDate(event_start, "DD")
+                    // console.log(day)
                     var event_name = confirm("Apakah anda yakin?");
                     if (event_name) {
                         $.ajax({
@@ -74,33 +80,19 @@
                                 id: window.location.href.split('/')[4],
                                 teknisi: window.location.href.split('/')[5],
                                 date: event_start,
-                                type: 'create'
+                                type: 'create',
+                                day: dayClick
                             },
                             type: "POST",
                             success: function(data) {
-                                if (data !== "full") {
+                                if (data === "full") {
+                                    alertMessage("Jadwal Penuh, Silahkan pilih hari lain");
+                                } else if(data === "libur"){
+                                    alertMessage("Hari Minggu Libur, Silahkan pilih hari lain");
+                                } else {
                                     displayMessage("Success");
                                     window.location = '/schedule';
-                                } else {
-                                    alertMessage("Jadwal Penuh, Silahkan pilih hari lain");
                                 }
-                            }
-                        });
-                    }
-                },
-                eventClick: function(event) {
-                    var eventDelete = confirm("Are you sure?");
-                    if (eventDelete) {
-                        $.ajax({
-                            type: "POST",
-                            url: SITEURL + '/calendar-crud-ajax',
-                            data: {
-                                id: event.id,
-                                type: 'delete'
-                            },
-                            success: function(response) {
-                                calendar.fullCalendar('removeEvents', event.id);
-                                displayMessage("Event removed");
                             }
                         });
                     }
@@ -113,7 +105,7 @@
         }
 
         function alertMessage(message) {
-            toastr.error(message, 'Full');
+            toastr.error(message, 'Alert');
         }
     </script>
 </body>

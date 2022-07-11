@@ -72,9 +72,26 @@ class ScheduleController extends Controller
             $teknisi = User::find($request->teknisi);
             $shift = Order::where(['teknisi' => $teknisi->name, 'date' => $request->date])->get();
             $count = count($shift);
-            if($count == 0){
+            // when sunday
+            if ($request->day == 0) {
+                $time = "libur";
+                return $time;
+            }
+            // when saturday
+            if ($request->day == 6) {
+                if ($count == 0) {
+                    $time = '07.00 - 10.00';
+                } else if ($count == 1) {
+                    $time = '10.00 - 13.00';
+                } else {
+                    $time = "full";
+                    return response()->json($time);
+                }
+            }
+            // when weekdays
+            if ($count == 0) {
                 $time = '07.00 - 10.00';
-            } else if($count == 1){
+            } else if ($count == 1) {
                 $time = '10.00 - 13.00';
             } else if ($count == 2) {
                 $time = '13.30 - 16.30';
@@ -87,7 +104,7 @@ class ScheduleController extends Controller
                 'teknisi'   => $teknisi->name,
                 'date'      => $request->date,
                 'time' => $time,
-                'day' => "sunday"
+                'day' => $request->day
             ]);
             return $event;
         }
