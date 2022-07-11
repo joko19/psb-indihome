@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 <head>
@@ -22,14 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Data Report</h1>
-                        </div><!-- /.col -->
-
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
+                <h1 class="m-0">Data Report</h1>
             </div>
             <!-- /.content-header -->
 
@@ -99,9 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
-    <!-- REQUIRED SCRIPTS -->
-
+    
     <!-- jQuery -->
     @include('Template.script')
     @include('sweetalert::alert')

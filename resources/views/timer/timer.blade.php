@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 <head>
@@ -22,19 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Timer</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li> -->
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
+                <h1 class="m-0">Timer</h1>
             </div>
             <!-- /.content-header -->
 
@@ -108,11 +92,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 url: "/timer/" + window.location.href.split('/')[4] + "/getTime",
                 type: "GET",
                 success: function(res) {
+                    // progress
                     var prepare = res[0].prepare ? "<button style='border-radius: 5px; margin:4px; '>Manajemen Janji</button>" : "<button style='border-radius: 5px; margin:4px; background-color: green; color: white; '>Manajemen Janji</button>";
                     var otw = !res[0].ontheway && !res[0].prepare ? "<button style='border-radius: 5px; margin:4px;'>Menuju Lokasi Pemasangan</button>" : res[0].ontheway ? "<button style='border-radius: 5px; margin:4px; '>Menuju Lokasi Pemasangan</button>" : "<button style='border-radius: 5px; margin:4px; background-color: green; color: white;'>Menuju Lokasi Pemasangan</button>";
                     var pemasangan = !res[0].process && !res[0].ontheway ? "<button style='border-radius: 5px; margin:4px;'>Pemasangan</button>" : res[0].process ? "<button style='border-radius: 5px; margin:4px; '>Pemasangan</button>" : "<button style='border-radius: 5px; margin:4px; background-color: green; color: white;'>Pemasangan</button>";
                     var finish = res[0].process ? "<button style='border-radius: 5px; margin:4px; background-color: green; color: white;'>Penyiapan Berita Acara</button>" : "<button style='border-radius: 5px; margin:4px; '>Penyiapan Berita Acara</button>";
                     $("#progress").append(prepare, otw, pemasangan, finish)
+
+                    // deadline
                     var d = res[0].time.split("-")[1] + ".00"
                     var deadline = d.split(".").join(":")
                     var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
@@ -122,18 +109,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     // Update the count down every 1 second
                     var x = setInterval(function() {
+                        // interval countdown
                         var now = new Date().getTime();
+                        var distance = countDownDate - now;
+
+                        // today date
                         var today = new Date()
                         var dd = String(today.getDate()).padStart(2, '0');
                         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                         var yyyy = today.getFullYear();
                         var dateNow = yyyy + "-" + mm + "-" + dd
-                        var distance = countDownDate - now;
 
-                        var days = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        // when today is scheduled
                         if (date === dateNow) {
                             if (hours > 2) {
                                 document.getElementById("demo").innerHTML = res[0].time;
@@ -149,19 +136,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 document.getElementById("btnFinish").innerHTML = "Finish this process"
                                 document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
                             }
-                        } else {
-                            if (distance < 0) {
+                        } 
+                        // when schedule is not today
+                        else {
+                            if (distance < 0) { //after shcedule
                                 clearInterval(x);
                                 document.getElementById("demo").innerHTML = "Waktu Habis";
-                            } else {
+                            } else { //before schedule
                                 document.getElementById("demo").innerHTML = res[0].date + " " + res[0].time;
                             }
                         }
                     }, 1000);
 
+                    // send data to backend
                     var startTime = res[0].endStep ? res[0].endStep : d.split(".").join(":")
-                    console.log(startTime)
-                    // send data
                     $('#finish').click(function() {
                         var d = res[0].time.split("-")[0] + ".00"
                         var startTime = res[0].endStep ? res[0].endStep : d.split(".").join(":")
@@ -169,7 +157,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         var date = res[0].date;
                         var start = month[date.split("-")[1] - 1] + " " + date.split("-")[0] + "," + " " + date.split("-")[2] + " " + startTime;
                         var startCount = new Date(start).getTime();
-                        console.log(startTime)
                         var x = setInterval(function() {
                             var now = new Date().getTime();
                             var distance = now - startCount;

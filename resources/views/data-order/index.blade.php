@@ -32,8 +32,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 @if (auth()->user()->level == "admin")
                                 <a href="{{route('create-order')}}" type="button" class="btn btn-success">Add Data Order</a>
                                 @endif
-                                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li> -->
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -105,8 +103,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
-    <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
     @include('Template.script')

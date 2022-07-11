@@ -17,9 +17,11 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         if ($user->level == "admin") {
+            // when admin login, show all data
             $dataOrder = Order::orderBy('id', 'DESC')->get();
             return view('data-order.index', compact('dataOrder'));
         } else {
+            // show data based teknisi login
             $dataOrder = Order::where(['teknisi' => $user->name, 'status' => 'scheduled'])->orderBy('id', 'DESC')->get();
             return view('data-order.index', compact('dataOrder'));
         }
@@ -58,50 +60,5 @@ class OrderController extends Controller
             'phone' => $request->phone
         ]);
         return redirect('data-order')->with('success', 'Berhasil Menambahkan Data Pesanan');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

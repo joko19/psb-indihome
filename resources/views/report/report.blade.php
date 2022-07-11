@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 <head>
@@ -11,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <!-- Navbar -->        
+        <!-- Navbar -->
         @include('Template.navbar')
         <!-- /.navbar -->
 
@@ -23,11 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Report</h1>
-                        </div>
-                    </div>
+                    <h1>Report</h1>
                 </div><!-- /.container-fluid -->
             </section>
 
@@ -109,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <!-- /.row -->
 
-                                
+
 
                                 <!-- this row will not appear when printing -->
                                 <div class="row no-print">
@@ -136,8 +128,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
 
     <!-- REQUIRED SCRIPTS -->
-
-    <!-- jQuery -->
     @include('Template.script')
     @include('sweetalert::alert')
 </body>

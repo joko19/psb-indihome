@@ -56,6 +56,7 @@
                 editable: true,
                 events: "/calendar/" + window.location.href.split('/')[5],
                 displayEventTime: true,
+                // Show scheduled
                 eventRender: function(event, element, view) {
                     if (event.allDay === 'true') {
                         event.allDay = true;
@@ -68,10 +69,9 @@
                 dayClick: function(date, jsEvent, view){
                     dayClick = date.day();
                 },
+                // add scheduled
                 select: function(event_start, event_end, allDay) {
                     var event_start = $.fullCalendar.formatDate(event_start, "Y-MM-DD");
-                    // var day = $.fullCalendar.formatDate(event_start, "DD")
-                    // console.log(day)
                     var event_name = confirm("Apakah anda yakin?");
                     if (event_name) {
                         $.ajax({

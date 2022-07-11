@@ -28,6 +28,7 @@ class ScheduleController extends Controller
         return view('schedule.choose-teknisi', compact('allTeknisi', 'id'));
     }
 
+    // data scheduled on calendar
     public function calendar($teknisi)
     {
         $dataTeknisi = User::find($teknisi);
@@ -39,11 +40,10 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // view calendar
     public function create(Request $request)
     {
-        // $dataTeknisi = User::find($teknisi);
-        // $dataOrder = Order::all()->where("status", "scheduled")->where('teknisi', $dataTeknisi->name);
-        if (auth()->user()->level == "admin") {
+         if (auth()->user()->level == "admin") {
             if ($request->ajax()) {
                 $data = Order::whereDate('start', '>=', $request->start)
                     ->whereDate('end',   '<=', $request->end)
@@ -51,8 +51,6 @@ class ScheduleController extends Controller
                 return response()->json($data);
             }
             return view('schedule.create');
-            // return view('schedule.create', compact('dataOrder', 'dataTeknisi'));
-            // dd($dataOrder);
         } else {
             return redirect('schedule');
         }
@@ -108,50 +106,5 @@ class ScheduleController extends Controller
             ]);
             return $event;
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
