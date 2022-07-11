@@ -45,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row">
                     <div class="col text-center">
                         <h1 id="demo" class="text-center h1" style="font-size: 72px;"></h1>
-                        <button class="btn btn-success m-auto" data-toggle="modal" data-target="#exampleModal">Finish this process</button>
+                        <button class="btn m-auto" style="color: green;" id="btnFinish" data-toggle="modal" data-target="#exampleModal"></button>
                     </div>
                 </div>
             </div>
@@ -115,46 +115,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $("#progress").append(prepare, otw, pemasangan, finish)
                     var d = res[0].time.split("-")[1] + ".00"
                     var deadline = d.split(".").join(":")
-                    // console.log(deadline)
-                    // var start_time = time.split(":")[0] - 3 + ":" + time.split(":")[1] + ":" + time.split(":")[2];
                     var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
                     var date = res[0].date;
-                    // var start = month[date.split("-")[1] - 1] + " " + date.split("-")[0] + "," + " " + date.split("-")[2] + " " + start_time;
                     var newDate = month[date.split("-")[1] - 1] + " " + date.split("-")[0] + "," + " " + date.split("-")[2] + " " + deadline;
                     var countDownDate = new Date(newDate).getTime();
 
-                    // var countDownstartDate = new Date(start).getTime();
-
                     // Update the count down every 1 second
                     var x = setInterval(function() {
-                        // Get today's date and time
                         var now = new Date().getTime();
-                        // var a = now.toLocaleString("en-US", {
-                        //     timeZone: "Asia/Jakarta"
-                        // });
                         var today = new Date()
                         var dd = String(today.getDate()).padStart(2, '0');
                         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                         var yyyy = today.getFullYear();
                         var dateNow = yyyy + "-" + mm + "-" + dd
-                        // console.log(newDate)
-                        // var sekarang = Date.now();
-                        // console.log(Date().now());
-                        // console.log(sekarang);
-                        // console.log(now);
-                        // console.log(a)
-                        // Find the distance between now and the count down date
                         var distance = countDownDate - now;
 
-                        //jika belum waktunya
-                        // console.log(distance)
                         var days = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                        // console.log(hours + "h " + minutes + "m " + seconds + "s ")
-                        // console.log(date)
-                        // console.log(dateNow)
                         if (date === dateNow) {
                             if (hours > 2) {
                                 document.getElementById("demo").innerHTML = res[0].time;
@@ -167,6 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                                 // Display the result in the element with id="demo"
+                                document.getElementById("btnFinish").innerHTML = "Finish this process"
                                 document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
                             }
                         } else {
@@ -220,14 +200,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             });
                         }, 1000);
                     });
-
-                    // $.ajax({
-                    //     url: "/timer/" + window.location.href.split('/')[4] + "/setTime",
-                    //     type: "POST",
-                    //     success: function(res) {
-                    //         console.log(res)
-                    //     }
-                    // })
                 }
             });
         })
